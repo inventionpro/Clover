@@ -31,8 +31,8 @@ function view() {
       for (let i = 0; i<canvas.width*canvas.height/4; i++) {
         let x = (i%(canvas.width/2))*2+b%2;
         let y = Math.floor(i/(canvas.width/2))*2+Math.floor(b/2);
-        ctx.fillStyle = `rgba(${pixels[i][0]}, ${pixels[i][1]}, ${pixels[i][2]}, ${pixels[i][4]/255})`;
-        ctx.fillRect(x, y, 1, 1);
+        ctx.fillStyle = `rgba(${pixels[i][0]}, ${pixels[i][1]}, ${pixels[i][2]}, ${pixels[i][3]/255})`;
+        ctx.fillRect(x+1, y+1, 1, 1);
       }
     }
   }
@@ -49,13 +49,27 @@ function encode() {
   let img = new Image();
   img.onload = function() {
     URL.revokeObjectURL(url);
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = Math.ceil(img.width/2)*2;
+    canvas.height = Math.ceil(img.height/2)*2;
 
     ctx.drawImage(img, 0, 0);
 
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let newimg = new UInt8Array();
+    let newimg = new Uint8Array(imageData.length+8);
+    newimg.set([240, 159, 141, 128]);
+    newimg.set([(canvas.width/2)>>8, (canvas.width/2)&255], 4);
+    newimg.set([(canvas.height/2)>>8, (canvas.height/2)&255], 6);
+    newimg.set(imageData, 8);
+
+    let blob = new Blob([newimg], { type: 'image/clover' });
+    let url = URL.createObjectURL(blob);
+
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = file.name.replace(/\..+?$/m, '.clover');
+    a.click();
+
+    URL.revokeObjectURL(url);
   };
   img.src = url;
 };
