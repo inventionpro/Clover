@@ -17,10 +17,11 @@ function view() {
       alert('Invalid file contents')
       return;
     }
-    canvas.width = parseInt(Array.from(data.slice(4,6)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
-    canvas.height = parseInt(Array.from(data.slice(6,8)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
+    let ver = data.slice(4,5);
+    canvas.width = parseInt(Array.from(data.slice(5,7)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
+    canvas.height = parseInt(Array.from(data.slice(7,9)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
 
-    let datasec = data.slice(8);
+    let datasec = data.slice(9);
     let pixels = [];
     for (let i = 0; i<canvas.width*canvas.height*4; i++) {
       if (!pixels[Math.floor(i/4)]) pixels[Math.floor(i/4)] = [];
@@ -74,11 +75,12 @@ function encode() {
       }
     }
     
-    let newimg = new Uint8Array(datasec.length+8);
-    newimg.set([240, 159, 141, 128]);
-    newimg.set([(canvas.width/2)>>8, (canvas.width/2)&255], 4);
-    newimg.set([(canvas.height/2)>>8, (canvas.height/2)&255], 6);
-    newimg.set(datasec, 8);
+    let newimg = new Uint8Array(datasec.length+16);
+    newimg.set([240, 159, 141, 128]); // Magic 🍀
+    newimg.set([128], 4); // Version 0 with alpha
+    newimg.set([(canvas.width/2)>>8, (canvas.width/2)&255], 5); // Width
+    newimg.set([(canvas.height/2)>>8, (canvas.height/2)&255], 7); // Height
+    newimg.set(datasec, 9);
 
     let blob = new Blob([newimg], { type: 'image/clover' });
     let newurl = URL.createObjectURL(blob);
