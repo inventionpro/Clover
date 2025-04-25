@@ -55,11 +55,30 @@ function encode() {
     ctx.drawImage(img, 0, 0);
 
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let newimg = new Uint8Array(imageData.length+8);
+
+    let blockWidth = canvas.width / 2;
+    let blockHeight = canvas.height / 2;
+    let datasec = new Uint8Array(blockWidth * blockHeight * 4);
+
+    for (let blockY = 0; blockY < blockHeight; blockY++) {
+      for (let blockX = 0; blockX < blockWidth; blockX++) {
+        let x = 1 + blockX * 2;
+        let y = 1 + blockY * 2;
+        let pidx = (y * canvas.width + x) * 4;
+
+        const idx = (blockY * blockWidth + blockX) * 4;
+        datasec[idx] = imageData[pidx];
+        datasec[idx + 1] = imageData[pidx + 1];
+        datasec[idx + 2] = imageData[pidx + 2];
+        datasec[idx + 3] = imageData[pidx + 3];
+      }
+    }
+    
+    let newimg = new Uint8Array(datasec.length+8);
     newimg.set([240, 159, 141, 128]);
     newimg.set([(canvas.width/2)>>8, (canvas.width/2)&255], 4);
     newimg.set([(canvas.height/2)>>8, (canvas.height/2)&255], 6);
-    newimg.set(imageData, 8);
+    newimg.set(datasec, 8);
 
     let blob = new Blob([newimg], { type: 'image/clover' });
     let newurl = URL.createObjectURL(blob);
