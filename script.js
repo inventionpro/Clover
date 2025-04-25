@@ -17,8 +17,24 @@ function view() {
       alert('Invalid file contents')
       return;
     }
-    canvas.width = parseInt(Array.from(data.slice(4,2)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
-    canvas.height = parseInt(Array.from(data.slice(6,2)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
+    canvas.width = parseInt(Array.from(data.slice(4,6)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
+    canvas.height = parseInt(Array.from(data.slice(6,8)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
+
+    let datasec = data.slice(8);
+    let pixels = [];
+    for (let i = 0; i<canvas.width*canvas.height*4; i++) {
+      if (!pixels[Math.floor(i/4)]) pixels[Math.floor(i/4)] = [];
+      pixels[Math.floor(i/4)][i%4] = datasec[i];
+    }
+
+    for (let b = 0; b<4; b++) {
+      for (let i = 0; i<canvas.width*canvas.height/4; i++) {
+        let x = (i%(canvas.width/2))*2+b%2;
+        let y = Math.floor(i/(canvas.width/2))*2+Math.floor(b/2);
+        ctx.fillStyle = `rgba(${pixels[i][0]}, ${pixels[i][1]}, ${pixels[i][2]}, ${pixels[i][4]/255})`;
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
   }
   reader.onerror = function (evt) {
     alert("Error reading file");
