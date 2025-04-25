@@ -13,12 +13,12 @@ function view() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     let data = new Uint8Array(evt.target.result);
 
-   if (data.slice(0,4).join('') !== '') {
+   if (data.slice(0,4).join('') !== '240159141128') {
       alert('Invalid file contents')
       return;
     }
-    canvas.width = parseInt(Array.from(data.slice(6,10)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2);
-    canvas.height = parseInt(Array.from(data.slice(10,14)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2);
+    canvas.width = parseInt(Array.from(data.slice(4,2)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
+    canvas.height = parseInt(Array.from(data.slice(6,2)).map(e=>e.toString(2).padStart(8, '0')).join(''), 2)*2;
   }
   reader.onerror = function (evt) {
     alert("Error reading file");
