@@ -62,14 +62,14 @@ function encode() {
     newimg.set(imageData, 8);
 
     let blob = new Blob([newimg], { type: 'image/clover' });
-    let url = URL.createObjectURL(blob);
+    let newurl = URL.createObjectURL(blob);
 
     let a = document.createElement('a');
-    a.href = url;
+    a.href = newurl;
     a.download = file.name.replace(/\..+?$/m, '.clover');
     a.click();
 
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(newurl);
   };
   img.src = url;
 };
