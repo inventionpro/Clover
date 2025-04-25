@@ -42,4 +42,4 @@ function encode() {
     let newimg = new UInt8Array();
   };
   img.src = url;
-});
+};
