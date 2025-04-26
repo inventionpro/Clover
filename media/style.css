@@ -10,6 +10,7 @@ body {
   color: var(--text);
   font-family: Lexend, Arial, sans-serif;
   background-color: var(--bg);
+  background-image: radial-gradient(circle at center, var(--accent) 0%, transparent 70%);
 }
 a {
   color: var(--accent);
