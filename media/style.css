@@ -1,0 +1,16 @@
+/* Colors */
+:root {
+  --accent: #20b31b;
+  --text: #ddd;
+  --bg: #181818;
+}
+
+/* Main */
+body {
+  color: var(--text);
+  font-family: Lexend, Arial, sans-serif;
+  background-color: var(--bg);
+}
+a {
+  color: var(--accent);
+}
