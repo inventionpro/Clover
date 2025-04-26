@@ -1,5 +1,5 @@
 # Clover 🍀
-A image file format designed for slow unstable connections.
+Clover is a binary image file format designed for slow unstable connections.
 
 ## File Structure
 | Section  | Size | Contents                 |
