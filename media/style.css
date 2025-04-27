@@ -7,11 +7,17 @@
 
 /* Main */
 body {
+  width: calc(100vw - 16px);
+  height: calc(100vh - 16px);
   color: var(--text);
   font-family: Lexend, Arial, sans-serif;
   background-color: var(--bg);
-  background-image: radial-gradient(circle at top left, var(--accent) 2%, transparent 50%);
+  background-image: radial-gradient(circle at top left, var(--accent) 0%, transparent 25%);
   background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+h1 {
+  margin: 2px;
 }
 a {
   color: var(--accent);
