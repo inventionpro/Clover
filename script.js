@@ -68,10 +68,10 @@ function encode() {
         let pidx = (y * canvas.width + x) * 4;
 
         const idx = (blockY * blockWidth + blockX) * 4;
-        datasec[idx] = imageData[pidx];
-        datasec[idx + 1] = imageData[pidx + 1];
-        datasec[idx + 2] = imageData[pidx + 2];
-        datasec[idx + 3] = imageData[pidx + 3];
+        datasec[idx] = imageData[pidx]??0;
+        datasec[idx+1] = imageData[pidx+1]??0;
+        datasec[idx+2] = imageData[pidx+2]??0;
+        datasec[idx+3] = imageData[pidx+3]??0;
       }
     }
     
