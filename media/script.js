@@ -10,6 +10,7 @@ function view() {
     alert(err);
   }
 }
+window.view = view;
 
 function encode() {
   let file = filep.files[0];
@@ -63,3 +64,4 @@ function encode() {
   };
   img.src = url;
 };
+window.encode = encode;
