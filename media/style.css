@@ -29,6 +29,9 @@ a {
 a:hover {
   filter: brightness(0.8);
 }
+button, input, ::file-selector-button {
+  font-family: Lexend, Arial, sans-serif;
+}
 button, ::file-selector-button {
   cursor: pointer;
   color: var(--text);
@@ -41,4 +44,9 @@ button, ::file-selector-button {
 }
 button:hover, ::file-selector-button:hover {
   background: var(--accent);
+}
+
+/* Pages */
+#canvas {
+  width: 50vw;
 }
