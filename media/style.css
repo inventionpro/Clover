@@ -36,7 +36,7 @@ button, ::file-selector-button {
   margin: 2px;
   border: 2px var(--accent) solid;
   border-radius: 0.25rem;
-  background: none;
+  background: var(--bg);
   transition: 500ms;
 }
 button:hover, ::file-selector-button:hover {
