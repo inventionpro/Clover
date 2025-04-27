@@ -1,6 +1,4 @@
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-
 const filep = document.getElementById('file');
 
 function view() {
@@ -12,9 +10,9 @@ function view() {
 }
 window.view = view;
 
-function encode() {
+async function encode() {
   try {
-    let file = Clover.convertFromFile(filep.files[0], canvas);
+    let file = await Clover.convertFromFile(filep.files[0]);
     Clover.downloadFile(file, filep.files[0].name.replace(/\..+?$/m, '.clover'));
   } catch(err) {
     alert(err);
