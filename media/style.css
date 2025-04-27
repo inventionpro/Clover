@@ -1,7 +1,7 @@
 /* Colors */
 :root {
   --accent: #20b31b;
-  --text: #ddd;
+  --text: #eee;
   --bg: #181818;
 }
 
@@ -16,9 +16,29 @@ body {
   background-repeat: no-repeat;
   box-sizing: border-box;
 }
-h1 {
+h1, p {
   margin: 2px;
+}
+hr {
+  border-style: solid;
 }
 a {
   color: var(--accent);
+  transition: 500ms;
+}
+a:hover {
+  filter: brightness(0.8);
+}
+button, ::file-selector-button {
+  cursor: pointer;
+  color: var(--text);
+  padding: 4px 8px;
+  margin: 2px;
+  border: 2px var(--accent) solid;
+  border-radius: 0.25rem;
+  background: none;
+  transition: 500ms;
+}
+button:hover, ::file-selector-button:hover {
+  background: var(--accent);
 }
