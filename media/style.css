@@ -48,5 +48,8 @@ button:hover, ::file-selector-button:hover {
 
 /* Pages */
 #canvas {
-  width: 50vw;
+  max-width: 50vw;
+  max-height: 75vh;
+  min-width: 5vw;
+  min-height: 10vh;
 }
