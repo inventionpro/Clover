@@ -28,14 +28,21 @@ let Clover = {
         pixels[Math.floor(i/(alpha?4:3))][i%(alpha?4:3)] = datasec[i];
       }
 
+      let imageData = ctx.createImageData(width, height);
+      let data = imageData.data;
       for (let b = 0; b<4; b++) {
         for (let i = 0; i<canvas.width*canvas.height/4; i++) {
           let x = (i%(canvas.width/2))*2+b%2;
           let y = Math.floor(i/(canvas.width/2))*2+Math.floor(b/2);
-          ctx.fillStyle = `rgba(${pixels[i][0]}, ${pixels[i][1]}, ${pixels[i][2]}, ${(pixels[i][3]??255)/255})`;
-          requestAnimationFrame(()=>{ctx.fillRect(x+1, y+1, 1, 1);});
+          let idx = ((y * width) + x) * 4;
+          data[idx] = pixels[i][0];
+          data[idx+1] = pixels[i][1];
+          data[idx+2] = pixels[i][2];
+          data[idx+3] = (pixels[i][3]??255)/255;
+          if (idx%5000===0) ctx.putImageData(imageData, 0, 0);
         }
       }
+      ctx.putImageData(imageData, 0, 0);
     }
     reader.onerror = function (evt) {
       throw new Error('Cannot read file');
