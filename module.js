@@ -33,7 +33,7 @@ let Clover = {
           let x = (i%(canvas.width/2))*2+b%2;
           let y = Math.floor(i/(canvas.width/2))*2+Math.floor(b/2);
           ctx.fillStyle = `rgba(${pixels[i][0]}, ${pixels[i][1]}, ${pixels[i][2]}, ${(pixels[i][3]??255)/255})`;
-          ctx.fillRect(x+1, y+1, 1, 1);
+          requestAnimationFrame(()=>{ctx.fillRect(x+1, y+1, 1, 1);});
         }
       }
     }
