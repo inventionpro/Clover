@@ -28,7 +28,7 @@ let Clover = {
         pixels[Math.floor(i/(alpha?4:3))][i%(alpha?4:3)] = datasec[i];
       }
 
-      let imageData = ctx.createImageData(width, height);
+      let imageData = ctx.createImageData(canvas.width, canvas.height);
       let idata = imageData.data;
       for (let b = 0; b<4; b++) {
         for (let i = 0; i<canvas.width*canvas.height/4; i++) {
