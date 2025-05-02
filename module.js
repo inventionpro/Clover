@@ -66,22 +66,19 @@ let Clover = {
 
         let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
-        let blockWidth = canvas.width / 2;
-        let blockHeight = canvas.height / 2;
-        let datasec = new Uint8Array(blockWidth * blockHeight * 4);
+        let datasec = new Uint8Array(canvas.width * canvas.height * 4);
 
-        for (let blockY = 0; blockY < blockHeight; blockY++) {
-          for (let blockX = 0; blockX < blockWidth; blockX++) {
-            let x = 1 + blockX * 2;
-            let y = 1 + blockY * 2;
-            let pidx = (y * canvas.width + x) * 4;
-
-            const idx = (blockY * blockWidth + blockX) * 4;
-            datasec[idx] = imageData[pidx]??0;
-            datasec[idx+1] = imageData[pidx+1]??0;
-            datasec[idx+2] = imageData[pidx+2]??0;
-            datasec[idx+3] = imageData[pidx+3]??0;
-          }
+        for (let i = 0; i<canvas.width*canvas.height*4; i+=4) {
+          let b = Math.floor(i/(canvas.width*canvas.height));
+          let x = ((i/4)%(canvas.width/2))*2+b%2;
+          let y = ((Math.floor((i/4)/(canvas.width/2))*2)%canvas.height)+Math.floor(b/2);
+          let idx = ((y * canvas.width) + x) * 4;
+          console.log(x, y);
+          datasec[(i/4)] = [];
+          datasec[(i/4)][0] = imageData[idx];
+          datasec[(i/4)][1] = imageData[idx+1];
+          datasec[(i/4)][2] = imageData[idx+2];
+          datasec[(i/4)][3] = imageData[idx+3];
         }
 
         let newimg = new Uint8Array(datasec.length+16);
