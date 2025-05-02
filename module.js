@@ -73,12 +73,10 @@ let Clover = {
           let x = ((i/4)%(canvas.width/2))*2+b%2;
           let y = ((Math.floor((i/4)/(canvas.width/2))*2)%canvas.height)+Math.floor(b/2);
           let idx = ((y * canvas.width) + x) * 4;
-          console.log(x, y);
-          datasec[(i/4)] = [];
-          datasec[(i/4)][0] = imageData[idx];
-          datasec[(i/4)][1] = imageData[idx+1];
-          datasec[(i/4)][2] = imageData[idx+2];
-          datasec[(i/4)][3] = imageData[idx+3];
+          datasec[i] = imageData[idx];
+          datasec[i+1] = imageData[idx+1];
+          datasec[i+2] = imageData[idx+2];
+          datasec[i+3] = imageData[idx+3];
         }
 
         let newimg = new Uint8Array(datasec.length+16);
