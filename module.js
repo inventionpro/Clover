@@ -23,7 +23,7 @@ let Clover = {
       let datasec = data.slice(9);
 
       let pixels = [];
-      for (let i = 0; i<canvas.width*canvas.height*(alpha?4:3); i++) {
+      for (let i = 0; i<canvas.width*canvas.height; i++) {
         if (!pixels[Math.floor(i/(alpha?4:3))]) pixels[Math.floor(i/(alpha?4:3))] = [];
         pixels[Math.floor(i/(alpha?4:3))][i%(alpha?4:3)] = datasec[i];
       }
@@ -38,7 +38,7 @@ let Clover = {
           idata[idx] = pixels[i][0];
           idata[idx+1] = pixels[i][1];
           idata[idx+2] = pixels[i][2];
-          idata[idx+3] = (pixels[i][3]??255)/255;
+          idata[idx+3] = pixels[i][3]??255;
           if (idx%5000===0) ctx.putImageData(imageData, 0, 0);
         }
       }
